@@ -24,17 +24,6 @@ jobs:
         run: echo "Segundo Hola Mundo desde ${{ github.ref_name }}"
   
   third_job:
-    name: Uso de actions
-    runs-on: ubuntu-latest
-    steps:
-      - name: Working directory
-        run: ls -al
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Working directory
-        run: ls -al
-
-  fourth_job:
     name: Uso de output
     runs-on: ubuntu-latest
     steps:
@@ -44,3 +33,20 @@ jobs:
       - name: Leer de output
         id: step_2
         run: echo ${{ steps.step_1.outputs.mi_variable }}
+    outputs:
+      salida: ${{ steps.step_1.outputs.mi_variable }}
+
+  
+  fourth_job:
+    name: Uso de actions
+    needs: third_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Working directory
+        run: ls -al
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Working directory
+        run: ls -al
+      - name: Output de otro job
+        run: echo ${{ needs.third_job.outputs.salida }}
