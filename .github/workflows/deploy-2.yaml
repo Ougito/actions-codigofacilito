@@ -33,3 +33,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Working directory
         run: ls -al
+
+  fourth_job:
+    name: Uso de output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guardar en output
+        id: step_1
+        run: echo "mi_variable=string a guardar" >> $GITHUB_OUTPUT
+      - name: Leer de output
+        id: step_2
+        run: echo ${{ steps.step_1.outputs.mi_variable }}
