@@ -5,13 +5,15 @@ on: push
 jobs:
   first_job:
     runs-on: ubuntu-latest
+    env:
+      NAME: Código Facilito
     steps:
       - name: Hola Mundo
-        run: echo "Hola Mundo"
+        run: echo "Hola Mundo desde $NAME"
 
   second_job:
     # if: false  # no se ejecutaría porque la directiva if es false aunque el first_job finalice con éxito
-    if: ${{ github.ref_name }} == "main"
+    if: ${{ github.ref_name }} == "main"  # En la clase pone la comparación dentro del contexto, pero a mí solo me funciona fuera.
     needs: first_job  # se puede especificar en formato de lista para especificar todos los jobs previos que necesita.
     # Si falla first_job, second_job no se ejecutará
     runs-on: ubuntu-latest
