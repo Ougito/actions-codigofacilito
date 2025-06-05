@@ -10,8 +10,11 @@ jobs:
         run: echo "Hola Mundo"
 
   second_job:
+    # if: false  # no se ejecutaría porque la directiva if es false aunque el first_job finalice con éxito
+    if: ${{ github.ref_name }} == "main"
     needs: first_job  # se puede especificar en formato de lista para especificar todos los jobs previos que necesita.
+    # Si falla first_job, second_job no se ejecutará
     runs-on: ubuntu-latest
     steps:
       - name: Hola Mundo
-        run: echo "Segundo Hola Mundo"
+        run: echo "Segundo Hola Mundo desde ${{ github.ref_name }}"
