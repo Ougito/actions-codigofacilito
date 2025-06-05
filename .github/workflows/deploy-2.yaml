@@ -3,7 +3,8 @@ name: Deploy to server
 on: push
 
 jobs:
-  first_job:
+  first_job:  # Esto actúa como id
+    name: Hola mundo desde Código Facilito  # Esto es el nombre que muestra en la columna de la izquiera cuando se está ejecutando
     runs-on: ubuntu-latest
     env:
       NAME: Código Facilito
@@ -12,6 +13,7 @@ jobs:
         run: echo "Hola Mundo desde $NAME"
 
   second_job:
+    name: Hola mundo desde rama main
     # if: false  # no se ejecutaría porque la directiva if es false aunque el first_job finalice con éxito
     if: ${{ github.ref_name }} == "main"  # En la clase pone la comparación dentro del contexto, pero a mí solo me funciona fuera.
     needs: first_job  # se puede especificar en formato de lista para especificar todos los jobs previos que necesita.
@@ -20,3 +22,14 @@ jobs:
     steps:
       - name: Hola Mundo
         run: echo "Segundo Hola Mundo desde ${{ github.ref_name }}"
+  
+  third_job:
+    name: Uso de actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Working directory
+        run: ls -al
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Working directory
+        run: ls -al
