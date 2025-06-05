@@ -10,6 +10,7 @@ jobs:
         run: echo "Hola Mundo"
 
   second_job:
+    needs: first_job  # se puede especificar en formato de lista para especificar todos los jobs previos que necesita.
     runs-on: ubuntu-latest
     steps:
       - name: Hola Mundo
