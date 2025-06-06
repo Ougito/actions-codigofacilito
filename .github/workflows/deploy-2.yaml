@@ -1,6 +1,9 @@
 name: Deploy to server
 
-on: push
+on: 
+  push:
+    branches:
+      - mains
 
 jobs:
   first_job:  # Esto actúa como id
@@ -72,4 +75,4 @@ jobs:
       with:  # directiva with para especificar el nombre del artefacto y el archivo que se usará para generar el artefacto
         name: archivo-test
     - name: Leer artefacto
-      run: cat test.log
+      run: cat test.log  # Especificar el nombre del archivo y no el nombre que especificas en la directiva with anterior

@@ -1,0 +1,22 @@
+name: Test múltiples versiones de Python
+
+on: push
+
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        message:
+          - Hola
+          - Código Facilito
+          - Bootcamp GitHub Actions
+        message2:
+          - 1
+          - 2
+
+    steps:
+      - name: Print message
+        run: echo "${{ matrix.message }} ${{ matrix.message2 }}"
+        # Ejecutará el job 6 veces combinando todos lo valores de matrix
