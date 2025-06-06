@@ -49,4 +49,15 @@ jobs:
       - name: Working directory
         run: ls -al
       - name: Output de otro job
-        run: echo ${{ needs.third_job.outputs.salida }}
+        run: echo ${{ needs.third_job.outputs.salida }}  
+      # en la clase se define como una variable de entorno: 
+      # env:
+      #   SALIDA: ${{ needs.third_job.outputs.salida }}
+      # para despues hacer echo $SALIDA
+      - name: Crear log
+        run: echo "Esto es una prueba para crear un archivo de log" >> test.log
+      - name: Crear artefacto
+        uses: actions/upload-artifact@v4
+        with:  # directiva with para especificar el nombre del artefacto y el archivo que se usará para generar el artefacto
+          name: archivo-test
+          path: test.log
