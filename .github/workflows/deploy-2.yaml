@@ -56,8 +56,20 @@ jobs:
       # para despues hacer echo $SALIDA
       - name: Crear log
         run: echo "Esto es una prueba para crear un archivo de log" >> test.log
-      - name: Crear artefacto
+      - name: Subir artefacto
         uses: actions/upload-artifact@v4
         with:  # directiva with para especificar el nombre del artefacto y el archivo que se usará para generar el artefacto
           name: archivo-test
           path: test.log
+    
+  fifth_job:
+    name: Descargar artefacto
+    runs-on: ubuntu-latest
+    needs: fourth_job
+    steps:
+    - name: Descargar artefacto
+      uses: actions/download-artifact@v4
+      with:  # directiva with para especificar el nombre del artefacto y el archivo que se usará para generar el artefacto
+        name: archivo-test
+    - name: Leer artefacto
+      run: cat test.log
