@@ -1,0 +1,25 @@
+name: Deploy
+
+on: push
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+    steps:
+      - name: Install redis cli
+        run: sudo apt update -y && sudo apt install redis-tools -y 
+      - name: Test redis
+        run: redis-cli -h localhost -p 6379 ping
+      - name: Prueba secreto
+        run: echo "${{ secrets.SECRET_TOKEN }}"
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
