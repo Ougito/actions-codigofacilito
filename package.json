@@ -1,0 +1,29 @@
+{
+  "name": "github-actions-bootcamps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ougito/actions-codigofacilito.git"
+  },
+  "author": "Eliseu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ougito/actions-codigofacilito/issues"
+  },
+  "homepage": "https://github.com/Ougito/actions-codigofacilito#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.1"
+  }
+}

@@ -3,7 +3,7 @@ name: Deploy to server
 on: 
   push:
     branches:
-      - mains
+      - main
 
 jobs:
   first_job:  # Esto actúa como id
