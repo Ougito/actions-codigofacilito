@@ -3,23 +3,55 @@ name: Deploy
 on: push
 
 jobs:
-  first-job:
+  build:
     runs-on: ubuntu-latest
 
-    services:
-      redis:
-        image: redis
-        ports:
-          - 6379:6379
+    # services:
+    #   redis:
+    #     image: redis
+    #     ports:
+    #       - 6379:6379
 
     steps:
-      - name: Install redis cli
-        run: sudo apt update -y && sudo apt install redis-tools -y 
-      - name: Test redis
-        run: redis-cli -h localhost -p 6379 ping
-      - name: Prueba secreto
-        run: echo "${{ secrets.SECRET_TOKEN }}"
+    #   - name: Install redis cli
+    #     run: sudo apt update -y && sudo apt install redis-tools -y 
+    #   - name: Test redis
+    #     run: redis-cli -h localhost -p 6379 ping
+      # - name: Prueba secreto
+      #   run: echo "${{ secrets.SECRET_TOKEN }}"
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run test
+        run: npm run test
+
+      - name: Build page
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment-pages.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment-pages
+        uses: actions/deploy-pages@v4

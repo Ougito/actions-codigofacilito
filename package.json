@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "start": "node src/app.js",
+    "test": "jest",
+    "build": "node src/build.js"
   },
   "repository": {
     "type": "git",
